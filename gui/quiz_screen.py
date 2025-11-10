@@ -129,6 +129,19 @@ class QuizScreen:
                        padding=(8, 4),
                        foreground="#3498db")
 
+        # Difficulty indicator styles
+        style.configure("DifficultySimple.TLabel",
+                       font=("Arial", 10, "bold"),
+                       foreground="#27ae60")  # Green for simple
+
+        style.configure("DifficultyMedium.TLabel",
+                       font=("Arial", 10, "bold"),
+                       foreground="#f39c12")  # Orange for medium
+
+        style.configure("DifficultyComplex.TLabel",
+                       font=("Arial", 10, "bold"),
+                       foreground="#e74c3c")  # Red for complex
+
     def create_widgets(self) -> None:
         """Create all widgets for the quiz screen."""
         # Main container with top and bottom sections
