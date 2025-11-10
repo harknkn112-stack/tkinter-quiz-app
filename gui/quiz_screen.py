@@ -470,6 +470,9 @@ class QuizScreen:
             if i < len(self.option_radios):
                 self.option_radios[i].config(text=f"{label}. {option_text}")
 
+        # Reset option styles first
+        self.reset_option_styles()
+
         # Set selected answer if previously answered
         saved_answer = self.answers[question_index]
         if saved_answer:
