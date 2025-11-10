@@ -377,6 +377,15 @@ class QuizScreen:
         self.timer.start()
         self.display_question(0)
 
+        # Start face monitoring if enabled
+        if self.face_monitoring_enabled and self.face_detector:
+            if self.face_detector.start_monitoring():
+                self.update_face_status("Active", "#27ae60")
+                self.logger.info("Face monitoring started")
+            else:
+                self.update_face_status("Failed to Start", "#e74c3c")
+                self.logger.error("Failed to start face monitoring")
+
         # Log quiz start
         self.logger.log_quiz_start(self.student.name, self.student.usn)
 
