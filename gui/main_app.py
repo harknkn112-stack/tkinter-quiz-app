@@ -452,6 +452,9 @@ class QuizApplication:
             if self.quiz_screen:
                 self.quiz_screen.cleanup()
 
+            if self.analytics_screen:
+                self.analytics_screen.analytics.close_connection()
+
             if self.db_manager:
                 self.db_manager.close_connection()
 
