@@ -28,6 +28,7 @@ class RegistrationScreen:
         self.master = master
         self.on_registration_success = on_registration_success
         self.on_cancel = on_cancel
+        self.on_analytics = on_analytics
         self.logger = get_logger()
 
         # Create registration frame
