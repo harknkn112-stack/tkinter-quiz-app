@@ -559,6 +559,12 @@ class QuizScreen:
             return
 
         self.is_quiz_active = False
+
+        # Stop face monitoring
+        if self.face_monitoring_enabled and self.face_detector:
+            self.face_detector.stop_monitoring()
+            self.update_face_status("Stopped", "#95a5a6")
+
         self.timer.stop()
         self.student.end_quiz()
         self.student.set_answers(self.answers)
@@ -569,7 +575,12 @@ class QuizScreen:
         # Update student score
         self.student.marks_scored = score
 
-        # Log quiz completion
+        # Log quiz completion with face monitoring stats
+        face_stats = {}
+        if self.face_monitoring_enabled and self.face_detector:
+            face_stats = self.face_detector.get_monitoring_stats()
+            self.logger.info(f"Face monitoring stats: {face_stats}")
+
         if self.timer_expired:
             self.logger.log_automatic_submission(
                 self.student.name,
