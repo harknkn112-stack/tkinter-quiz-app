@@ -90,6 +90,7 @@ def setup_application_directory() -> None:
         for directory in directories:
             dir_path = app_dir / directory
             dir_path.mkdir(exist_ok=True)
+            print(f"Directory ensured: {dir_path}")
 
     except Exception as e:
         print(f"Error setting up application directory: {e}")
