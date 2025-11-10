@@ -62,6 +62,9 @@ class QuizScreen:
         # Initialize timer
         self.setup_timer()
 
+        # Initialize face monitoring
+        self.setup_face_monitoring()
+
         # Start the quiz
         self.start_quiz()
 
