@@ -372,6 +372,11 @@ class RegistrationScreen:
             if self.on_cancel:
                 self.on_cancel()
 
+    def on_analytics_clicked(self) -> None:
+        """Handle Analytics button click."""
+        if self.on_analytics:
+            self.on_analytics()
+
     def clear_form(self) -> None:
         """Clear all form fields."""
         self.name_entry.delete(0, tk.END)
