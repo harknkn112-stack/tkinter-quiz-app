@@ -108,6 +108,11 @@ class QuizScreen:
                        font=("Arial", 9),
                        foreground="#7f8c8d")
 
+        # Face monitoring styles
+        style.configure("FaceStatus.TLabel",
+                       font=("Arial", 10, "bold"),
+                       foreground="#2c3e50")
+
     def create_widgets(self) -> None:
         """Create all widgets for the quiz screen."""
         # Main container with top and bottom sections
