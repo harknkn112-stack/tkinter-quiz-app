@@ -574,7 +574,7 @@ class QuizScreen:
             if selected_value == f"option{i+1}":
                 # Selected option - make it green and bold
                 radio.config(style="AnswerSelected.TRadiobutton")
-                self.option_frames[i].config(relief=tk.RAISED, borderwidth=2, relief=tk.GROOVE)
+                self.option_frames[i].config(relief=tk.GROOVE, borderwidth=2)
                 self.option_frames[i].config(background="#d5f4e6")  # Light green background
             else:
                 # Unselected options - normal style
