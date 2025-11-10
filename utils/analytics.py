@@ -233,12 +233,12 @@ class QuizAnalytics:
         """
         try:
             cursor = self.connection.cursor()
-            cursor.execute("""
+            cursor.execute(f"""
                 SELECT usn, name, university, date_of_exam, marks_scored
                 FROM Student
-                WHERE date_of_exam >= datetime('now', '-{} hours')
+                WHERE date_of_exam >= datetime('now', '-{hours} hours')
                 ORDER BY date_of_exam DESC
-            """.format(hours))
+            """)
 
             recent_activity = []
             for row in cursor.fetchall():
