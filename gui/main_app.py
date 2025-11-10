@@ -120,7 +120,8 @@ class QuizApplication:
             self.registration_screen = RegistrationScreen(
                 master=self.root,
                 on_registration_success=self.on_registration_success,
-                on_cancel=self.on_registration_cancel
+                on_cancel=self.on_registration_cancel,
+                on_analytics=self.show_analytics_screen
             )
 
             # Hide other screens initially
