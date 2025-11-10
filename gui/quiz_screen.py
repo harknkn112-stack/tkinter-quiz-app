@@ -292,9 +292,13 @@ class QuizScreen:
 
     def setup_timer(self) -> None:
         """Set up the quiz timer."""
+        # Get configuration for timer duration
+        config = get_config()
+        timer_duration_seconds = config.quiz_duration_minutes * 60
+
         self.timer = QuizTimer(
             master=self.frame,
-            total_seconds=600,  # 10 minutes
+            total_seconds=timer_duration_seconds,
             time_update_callback=self.update_timer_display,
             expiration_callback=self.on_timer_expired,
             warning_callback=self.on_timer_warning
