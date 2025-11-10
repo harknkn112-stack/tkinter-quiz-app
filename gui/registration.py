@@ -273,14 +273,14 @@ class RegistrationScreen:
 
     def on_tab_pressed(self, event) -> None:
         """Handle Tab key press."""
-        if self.focus_get() == self.name_entry:
+        if self.master.focus_get() == self.name_entry:
             self.university_entry.focus_set()
             return "break"
         return event
 
     def on_shift_tab_pressed(self, event) -> None:
         """Handle Shift+Tab key press."""
-        if self.focus_get() == self.university_entry:
+        if self.master.focus_get() == self.university_entry:
             self.name_entry.focus_set()
             return "break"
         return event
