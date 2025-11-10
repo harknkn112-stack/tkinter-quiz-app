@@ -196,17 +196,17 @@ class QuizAnalytics:
             cursor = self.connection.cursor()
 
             # Get activity for the last N days
-            cursor.execute("""
+            cursor.execute(f"""
                 SELECT
                     DATE(date_of_exam) as exam_date,
                     COUNT(*) as students_count,
                     AVG(marks_scored) as avg_score,
                     MAX(marks_scored) as max_score
                 FROM Student
-                WHERE date_of_exam >= DATE('now', '-{} days')
+                WHERE date_of_exam >= DATE('now', '-{days} days')
                 GROUP BY DATE(date_of_exam)
                 ORDER BY exam_date DESC
-            """.format(days))
+            """)
 
             daily_activity = []
             for row in cursor.fetchall():
