@@ -299,6 +299,77 @@ class QuizScreen:
             warning_callback=self.on_timer_warning
         )
 
+    def setup_face_monitoring(self) -> None:
+        """Set up face monitoring system."""
+        try:
+            self.face_detector = FaceDetector(
+                camera_index=0,
+                detection_interval=1.0,
+                absence_threshold=3,
+                callback=self.on_face_detection_event
+            )
+
+            # Try to initialize camera
+            if self.face_detector.test_camera():
+                self.face_monitoring_enabled = True
+                self.update_face_status("Ready", "#27ae60")  # Green
+                self.logger.info("Face monitoring initialized successfully")
+            else:
+                self.face_monitoring_enabled = False
+                self.update_face_status("Camera Unavailable", "#e74c3c")  # Red
+                self.logger.warning("Camera not available for face monitoring")
+
+        except Exception as e:
+            self.face_monitoring_enabled = False
+            self.update_face_status("Disabled", "#95a5a6")  # Gray
+            self.logger.error(f"Failed to initialize face monitoring: {e}")
+
+    def update_face_status(self, status: str, color: str = "#2c3e50") -> None:
+        """
+        Update the face monitoring status display.
+
+        Args:
+            status: Status text to display
+            color: Text color
+        """
+        if hasattr(self, 'face_status_label'):
+            self.face_status_label.config(
+                text=f"👁 Face Monitoring: {status}",
+                foreground=color
+            )
+
+    def on_face_detection_event(self, event_type: str, is_present: bool) -> None:
+        """
+        Handle face detection events.
+
+        Args:
+            event_type: Type of event (face_detected, user_away)
+            is_present: Whether face is detected
+        """
+        if not self.is_quiz_active:
+            return
+
+        if event_type == "face_detected":
+            if is_present:
+                self.update_face_status("Present", "#27ae60")  # Green
+            else:
+                self.update_face_status("Looking Away", "#f39c12")  # Orange
+        elif event_type == "user_away":
+            self.update_face_status("AWAY", "#e74c3c")  # Red
+            self.away_notifications += 1
+
+            # Show warning for user
+            self.master.after(0, self.show_away_warning)
+
+    def show_away_warning(self) -> None:
+        """Show warning when user looks away from screen."""
+        if self.away_notifications <= 3:  # Only show first few warnings
+            messagebox.showwarning(
+                "Attention Required",
+                "Please maintain focus on the quiz. Face detection indicates you're looking away from the screen."
+            )
+            self.logger.info(f"Away notification #{self.away_notifications} for student {self.student.name}")
+
     def start_quiz(self) -> None:
         """Start the quiz."""
         self.is_quiz_active = True
