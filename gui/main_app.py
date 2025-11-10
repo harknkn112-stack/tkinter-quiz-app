@@ -51,10 +51,13 @@ class QuizApplication:
     def setup_application(self) -> None:
         """Set up the main application window."""
         try:
+            # Load configuration
+            config = get_config()
+
             # Configure main window
             self.root.title("Quiz Application")
-            self.root.geometry("800x600")
-            self.root.minsize(800, 600)
+            self.root.geometry(f"{config.window_width}x{config.window_height}")
+            self.root.minsize(config.min_window_width, config.min_window_height)
             self.root.configure(bg="#ecf0f1")
 
             # Center window on screen
@@ -66,7 +69,7 @@ class QuizApplication:
             # Set up error handling
             self.setup_error_handling()
 
-            self.logger.info("Quiz application window initialized")
+            self.logger.info(f"Quiz application initialized - Duration: {config.quiz_duration_minutes}min, Questions: {config.total_questions}")
 
         except Exception as e:
             self.handle_critical_error("Application Setup Error", e)
