@@ -166,6 +166,18 @@ class QuizScreen:
         )
         student_info_label.pack(anchor=tk.W, pady=(5, 0))
 
+        # Face monitoring status
+        face_frame = ttk.Frame(counter_frame)
+        face_frame.pack(fill=tk.X, pady=(5, 0))
+
+        self.face_status_label = ttk.Label(
+            face_frame,
+            text="👁 Face Monitoring: Initializing...",
+            style="FaceStatus.TLabel",
+            foreground="#f39c12"
+        )
+        self.face_status_label.pack(side=tk.LEFT)
+
     def create_middle_section(self, parent: ttk.Frame) -> None:
         """Create question and options section."""
         middle_frame = ttk.Frame(parent)
