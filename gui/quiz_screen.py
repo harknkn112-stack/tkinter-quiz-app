@@ -10,6 +10,7 @@ from models.question import Question
 from models.student import Student
 from utils.timer import QuizTimer
 from utils.logger import get_logger
+from utils.face_detector import FaceDetector
 
 
 class QuizScreen:
