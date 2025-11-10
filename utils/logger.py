@@ -37,6 +37,11 @@ class QuizLogger:
             if self.logger.handlers:
                 return
 
+            # Ensure log directory exists
+            log_dir = os.path.dirname(self.log_file)
+            if log_dir and not os.path.exists(log_dir):
+                os.makedirs(log_dir, exist_ok=True)
+
             # Create formatter
             formatter = logging.Formatter(
                 '%(asctime)s [%(levelname)s] %(message)s',
