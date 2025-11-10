@@ -1,0 +1,40 @@
+# Quiz Application Requirements
+# This application uses only Python standard library modules
+# No external dependencies are required
+
+# Python Version Requirements
+python>=3.7
+
+# Standard Library Modules (automatically included with Python)
+# tkinter - GUI framework (included with Python)
+# sqlite3 - Database engine (included with Python)
+# logging - Logging system (included with Python)
+# datetime - Date and time handling (included with Python)
+# threading - Thread support (included with Python)
+# pathlib - Path handling (included with Python)
+
+# Optional Development Dependencies (for development only)
+# Uncomment if you want to use these for development or testing
+
+# Development Tools
+# pytest>=7.0.0          # For unit testing
+# pytest-cov>=4.0.0      # For test coverage
+# black>=22.0.0           # For code formatting
+# flake8>=5.0.0           # For linting
+# mypy>=0.991             # For type checking
+
+# Documentation (optional)
+# sphinx>=5.0.0           # For generating documentation
+# sphinx-rtd-theme>=1.0.0 # For documentation theme
+
+# Note: This application is designed to run with only the Python standard library.
+# The optional dependencies above are for development purposes only and are
+# not required for the application to function.
+
+# Installation Instructions:
+# 1. Ensure Python 3.7+ is installed
+# 2. No pip install required - all dependencies are in the standard library
+# 3. Run: python quiz_app.py
+
+# For Development:
+# pip install -r requirements.txt  # This will install optional dev tools
