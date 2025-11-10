@@ -534,20 +534,22 @@ class QuizScreen:
 
     def on_timer_warning(self, remaining_seconds: int) -> None:
         """Handle timer warnings."""
-        if remaining_seconds == 120:  # 2 minutes
+        config = get_config()
+
+        # Check if remaining time matches any configured warning times
+        if remaining_seconds in config.timer_warning_times:
+            if remaining_seconds >= 60:
+                minutes = remaining_seconds // 60
+                seconds = remaining_seconds % 60
+                time_str = f"{minutes} minute{'s' if minutes != 1 else ''}"
+                if seconds > 0:
+                    time_str += f" {seconds} second{'s' if seconds != 1 else ''}"
+            else:
+                time_str = f"{remaining_seconds} second{'s' if remaining_seconds != 1 else ''}"
+
             messagebox.showwarning(
                 "Time Warning",
-                "You have 2 minutes remaining to complete the quiz."
-            )
-        elif remaining_seconds == 60:  # 1 minute
-            messagebox.showwarning(
-                "Time Warning",
-                "You have 1 minute remaining to complete the quiz."
-            )
-        elif remaining_seconds == 30:  # 30 seconds
-            messagebox.showwarning(
-                "Time Warning",
-                "You have 30 seconds remaining to complete the quiz!"
+                f"You have {time_str} remaining to complete the quiz!"
             )
 
     def update_timer_display(self, time_str: str) -> None:
