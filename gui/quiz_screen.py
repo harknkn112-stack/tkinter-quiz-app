@@ -653,18 +653,27 @@ class QuizScreen:
 
     def bind_keyboard_events(self) -> None:
         """Bind keyboard shortcuts."""
-        # Ctrl+Left arrow for Previous
+        # Navigation shortcuts
         self.master.bind('<Control-Left>', lambda e: self.on_previous_clicked())
-
-        # Ctrl+Right arrow for Next
         self.master.bind('<Control-Right>', lambda e: self.on_next_clicked())
+        self.master.bind('<Alt-Left>', lambda e: self.go_to_first_question())
+        self.master.bind('<Alt-Right>', lambda e: self.go_to_last_question())
 
-        # Ctrl+Enter for Submit
+        # Quiz control shortcuts
         self.master.bind('<Control-Return>', lambda e: self.on_submit_clicked())
+        self.master.bind('<F1>', lambda e: self.show_help_overlay())
 
-        # Number keys 1-4 for quick answer selection
+        # Answer selection shortcuts
         for i in range(1, 5):
             self.master.bind(str(i), lambda e, num=i: self.select_answer_by_number(num))
+
+        # Clear current answer
+        self.master.bind('<space>', lambda e: self.clear_current_answer())
+
+        # Additional shortcuts (basic implementations)
+        self.master.bind('<Control-s>', lambda e: self.save_progress())
+        self.master.bind('<Control-p>', lambda e: self.toggle_timer_pause())
+        self.master.bind('<Control-t>', lambda e: self.show_time_remaining())
 
     def select_answer_by_number(self, number: int) -> None:
         """
