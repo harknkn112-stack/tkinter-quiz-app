@@ -18,6 +18,7 @@ from gui.registration import RegistrationScreen
 from gui.quiz_screen import QuizScreen
 from gui.results import ResultsScreen
 from gui.analytics_screen import AnalyticsScreen
+from quiz_config import get_config
 
 
 class QuizApplication:
