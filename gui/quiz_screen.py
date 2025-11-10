@@ -230,6 +230,7 @@ class QuizScreen:
 
         # Create radio buttons for options
         self.option_radios = []
+        self.option_frames = []
         for i in range(4):
             option_frame = ttk.Frame(options_frame)
             option_frame.pack(fill=tk.X, pady=5)
@@ -242,8 +243,18 @@ class QuizScreen:
                 style="Quiz.TRadiobutton",
                 command=self.on_answer_selected
             )
-            radio.pack(anchor=tk.W)
+            radio.pack(anchor=tk.W, fill=tk.X)
+
+            # Store reference to both radio and frame
             self.option_radios.append(radio)
+            self.option_frames.append(option_frame)
+
+            # Bind hover events for visual feedback
+            radio.bind('<Enter>', lambda e, idx=i: self.on_option_hover(idx, True))
+            radio.bind('<Leave>', lambda e, idx=i: self.on_option_hover(idx, False))
+
+        # Bind variable change event for immediate visual feedback
+        self.radio_var.trace('w', self.on_answer_changed)
 
     def create_bottom_section(self, parent: ttk.Frame) -> None:
         """Create navigation and progress section."""
