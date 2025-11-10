@@ -318,6 +318,44 @@ class QuizApplication:
         except Exception as e:
             self.logger.log_application_error(e, "answer_review")
 
+    def show_analytics_screen(self) -> None:
+        """Show the analytics screen."""
+        try:
+            # Hide current screen
+            if self.registration_screen:
+                self.registration_screen.hide_frame()
+            if self.results_screen:
+                self.results_screen.hide_frame()
+
+            # Create analytics screen if it doesn't exist
+            if not self.analytics_screen:
+                self.analytics_screen = AnalyticsScreen(
+                    master=self.root,
+                    on_back=self.hide_analytics_screen
+                )
+
+            if self.analytics_screen:
+                self.analytics_screen.show_frame()
+                self.logger.info("Analytics screen displayed")
+
+        except Exception as e:
+            self.handle_critical_error("Analytics Screen Error", e)
+
+    def hide_analytics_screen(self) -> None:
+        """Hide the analytics screen and return to registration."""
+        try:
+            if self.analytics_screen:
+                self.analytics_screen.hide_frame()
+
+            # Show registration screen
+            if self.registration_screen:
+                self.registration_screen.show_frame()
+
+            self.logger.info("Returned to registration screen from analytics")
+
+        except Exception as e:
+            self.logger.log_application_error(e, "hide_analytics")
+
     def show_answer_review(self, review_data: list) -> None:
         """
         Show a simple answer review dialog.
