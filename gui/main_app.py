@@ -182,11 +182,18 @@ class QuizApplication:
     def load_quiz_questions(self) -> None:
         """Load questions from database for the quiz."""
         try:
+            # Get configuration for question count
+            config = get_config()
+            total_questions = config.total_questions
+
             # Get questions from database
             questions_data = self.db_manager.get_questions()
 
-            if len(questions_data) < 10:
-                raise Exception(f"Insufficient questions in database: {len(questions_data)}/10")
+            if len(questions_data) < total_questions:
+                raise Exception(f"Insufficient questions in database: {len(questions_data)}/{total_questions}")
+
+            # Take only the configured number of questions
+            questions_data = questions_data[:total_questions]
 
             # Convert to Question objects
             self.questions = []
@@ -201,7 +208,7 @@ class QuizApplication:
                 )
                 self.questions.append(question)
 
-            self.logger.info(f"Loaded {len(self.questions)} questions for quiz")
+            self.logger.info(f"Loaded {len(self.questions)} questions for quiz (configured: {total_questions})")
 
         except Exception as e:
             error_msg = f"Failed to load quiz questions: {e}"
