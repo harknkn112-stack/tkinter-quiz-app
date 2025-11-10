@@ -381,7 +381,7 @@ class QuizAnalytics:
             cursor.execute("""
                 SELECT COUNT(*) as success_count
                 FROM Student
-                WHERE marks_scored >= 10  # 50% of 19 possible marks
+                WHERE marks_scored >= 10
             """)
 
             success_count = cursor.fetchone()['success_count']
