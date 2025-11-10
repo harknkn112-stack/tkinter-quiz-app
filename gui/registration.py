@@ -219,7 +219,7 @@ class RegistrationScreen:
 
         # Tab navigation
         self.name_entry.bind('<Tab>', self.on_tab_pressed)
-        self.university_entry.bind('<Tab-Shift>', self.on_shift_tab_pressed)
+        self.university_entry.bind('<Shift-Tab>', self.on_shift_tab_pressed)
 
     def validate_name_input(self, value: str) -> bool:
         """
