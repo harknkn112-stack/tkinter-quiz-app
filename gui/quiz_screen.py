@@ -11,6 +11,7 @@ from models.student import Student
 from utils.timer import QuizTimer
 from utils.logger import get_logger
 from utils.face_detector import FaceDetector
+from quiz_config import get_config
 
 
 class QuizScreen:
