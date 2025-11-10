@@ -15,7 +15,8 @@ class RegistrationScreen:
 
     def __init__(self, master: tk.Tk,
                  on_registration_success: Optional[Callable[[Student], None]] = None,
-                 on_cancel: Optional[Callable[[], None]] = None):
+                 on_cancel: Optional[Callable[[], None]] = None,
+                 on_analytics: Optional[Callable[[], None]] = None):
         """
         Initialize registration screen.
 
