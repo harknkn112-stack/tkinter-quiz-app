@@ -94,6 +94,15 @@ class QuizScreen:
         style.configure("Quiz.TRadiobutton",
                        font=("Arial", 11))
 
+        # Answer confirmation styles
+        style.configure("AnswerSelected.TRadiobutton",
+                       font=("Arial", 11, "bold"),
+                       foreground="#27ae60")  # Green for selected
+
+        style.configure("AnswerHover.TRadiobutton",
+                       font=("Arial", 11, "underline"),
+                       foreground="#3498db")  # Blue on hover
+
         # Button styles
         style.configure("Nav.TButton",
                        font=("Arial", 10, "bold"),
