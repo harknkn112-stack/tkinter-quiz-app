@@ -666,6 +666,11 @@ class QuizScreen:
         if self.timer:
             self.timer.stop()
 
+        # Stop face monitoring
+        if self.face_monitoring_enabled and self.face_detector:
+            self.face_detector.stop_monitoring()
+            self.face_detector.cleanup()
+
     def get_quiz_statistics(self) -> dict:
         """
         Get quiz statistics.
