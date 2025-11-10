@@ -1,5 +1,5 @@
 {
-  "quiz_duration_minutes": 10,
+  "quiz_duration_minutes": 15,
   "timer_warning_times": [
     120,
     60,
@@ -8,7 +8,7 @@
   ],
   "show_timer_countdown": true,
   "auto_submit_on_timeout": true,
-  "total_questions": 10,
+  "total_questions": 12,
   "question_distribution": {
     "simple": 4,
     "medium": 3,
@@ -27,7 +27,7 @@
   "allow_previous_navigation": true,
   "allow_question_skip": false,
   "require_all_answers": true,
-  "enable_face_monitoring": true,
+  "enable_face_monitoring": false,
   "camera_index": 0,
   "face_detection_interval": 1.0,
   "face_absence_threshold": 3,
