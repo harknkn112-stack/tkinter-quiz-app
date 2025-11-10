@@ -36,6 +36,7 @@ class QuizApplication:
         self.registration_screen = None
         self.quiz_screen = None
         self.results_screen = None
+        self.analytics_screen = None
 
         # Application state
         self.is_initialized = False
