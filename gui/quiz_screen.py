@@ -489,6 +489,9 @@ class QuizScreen:
         # Update question text
         self.question_label.config(text=current_question.question_text)
 
+        # Update difficulty indicator
+        self.update_difficulty_indicator(current_question.difficulty)
+
         # Update options
         options = current_question.get_options_with_labels()
         for i, (label, option_text) in enumerate(options.items()):
