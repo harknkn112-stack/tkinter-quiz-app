@@ -1,6 +1,5 @@
 # Quiz Application Requirements
-# This application uses only Python standard library modules
-# No external dependencies are required
+# This application uses Python standard library modules plus computer vision libraries
 
 # Python Version Requirements
 python>=3.7
@@ -12,6 +11,10 @@ python>=3.7
 # datetime - Date and time handling (included with Python)
 # threading - Thread support (included with Python)
 # pathlib - Path handling (included with Python)
+
+# Face Detection and Computer Vision Libraries
+opencv-python>=4.5.0
+numpy>=1.19.0
 
 # Optional Development Dependencies (for development only)
 # Uncomment if you want to use these for development or testing
@@ -27,14 +30,15 @@ python>=3.7
 # sphinx>=5.0.0           # For generating documentation
 # sphinx-rtd-theme>=1.0.0 # For documentation theme
 
-# Note: This application is designed to run with only the Python standard library.
-# The optional dependencies above are for development purposes only and are
-# not required for the application to function.
-
 # Installation Instructions:
 # 1. Ensure Python 3.7+ is installed
-# 2. No pip install required - all dependencies are in the standard library
+# 2. Install required packages: pip install opencv-python numpy
 # 3. Run: python quiz_app.py
 
 # For Development:
 # pip install -r requirements.txt  # This will install optional dev tools
+
+# Face Detection Requirements:
+# - Webcam or camera connected to the computer
+# - Sufficient lighting for face detection
+# - Camera permissions granted to the application
