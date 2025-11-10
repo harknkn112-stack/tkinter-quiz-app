@@ -720,3 +720,157 @@ class QuizScreen:
             'time_taken': self.timer.get_time_taken() if self.timer else 0,
             'is_active': self.is_quiz_active
         }
+
+    def show_help_overlay(self) -> None:
+        """Show keyboard shortcuts help overlay."""
+        help_window = tk.Toplevel(self.master)
+        help_window.title("Keyboard Shortcuts")
+        help_window.geometry("450x500")
+        help_window.resizable(False, False)
+        help_window.configure(bg="#ecf0f1")
+
+        # Make it modal (focus stays on help window)
+        help_window.transient(self.master)
+        help_window.grab_set()
+
+        # Center the help window
+        help_window.update_idletasks()
+        x = (help_window.winfo_screenwidth() // 2) - (450 // 2)
+        y = (help_window.winfo_screenheight() // 2) - (500 // 2)
+        help_window.geometry(f"+{x}+{y}")
+
+        # Title
+        title_label = tk.Label(
+            help_window,
+            text="⌨️ Keyboard Shortcuts",
+            font=("Arial", 16, "bold"),
+            bg="#ecf0f1",
+            fg="#2c3e50"
+        )
+        title_label.pack(pady=(20, 10))
+
+        # Subtitle
+        subtitle_label = tk.Label(
+            help_window,
+            text="Navigate your quiz faster with these shortcuts",
+            font=("Arial", 11),
+            bg="#ecf0f1",
+            fg="#7f8c8d"
+        )
+        subtitle_label.pack(pady=(0, 20))
+
+        # Create scrollable frame for shortcuts
+        canvas = tk.Canvas(help_window, bg="#ecf0f1", highlightthickness=0)
+        scrollbar = ttk.Scrollbar(help_window, orient="vertical", command=canvas.yview)
+        scrollable_frame = ttk.Frame(canvas)
+
+        scrollable_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+        )
+
+        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
+
+        # Keyboard shortcuts data
+        shortcuts = [
+            ("Navigation", [
+                ("Ctrl + ←", "Previous Question"),
+                ("Ctrl + →", "Next Question"),
+                ("Alt + ←", "First Question"),
+                ("Alt + →", "Last Question")
+            ]),
+            ("Answer Selection", [
+                ("1", "Select Option A"),
+                ("2", "Select Option B"),
+                ("3", "Select Option C"),
+                ("4", "Select Option D"),
+                ("Space", "Clear Current Answer")
+            ]),
+            ("Quiz Control", [
+                ("Ctrl + Enter", "Submit Quiz"),
+                ("Ctrl + S", "Save Progress"),
+                ("F1", "Show Help (This Window)"),
+                ("Escape", "Close Help")
+            ]),
+            ("Timer Control", [
+                ("Ctrl + P", "Pause/Resume Timer"),
+                ("Ctrl + T", "Show Time Remaining")
+            ])
+        ]
+
+        # Create shortcuts display
+        for category, category_shortcuts in shortcuts:
+            # Category header
+            category_frame = ttk.Frame(scrollable_frame)
+            category_frame.pack(fill=tk.X, padx=20, pady=(15, 5))
+
+            category_label = tk.Label(
+                category_frame,
+                text=category,
+                font=("Arial", 12, "bold"),
+                bg="#ecf0f1",
+                fg="#3498db"
+            )
+            category_label.pack(anchor=tk.W)
+
+            # Category shortcuts
+            for shortcut, description in category_shortcuts:
+                shortcut_frame = ttk.Frame(scrollable_frame)
+                shortcut_frame.pack(fill=tk.X, padx=30, pady=2)
+
+                # Shortcut key
+                shortcut_label = tk.Label(
+                    shortcut_frame,
+                    text=shortcut,
+                    font=("Courier", 11, "bold"),
+                    bg="#ecf0f1",
+                    fg="#2c3e50",
+                    width=12,
+                    anchor=tk.W
+                )
+                shortcut_label.pack(side=tk.LEFT)
+
+                # Description
+                desc_label = tk.Label(
+                    shortcut_frame,
+                    text=description,
+                    font=("Arial", 11),
+                    bg="#ecf0f1",
+                    fg="#34495e",
+                    anchor=tk.W
+                )
+                desc_label.pack(side=tk.LEFT, padx=(10, 0))
+
+        canvas.pack(side="left", fill="both", expand=True, padx=20, pady=(0, 10))
+        scrollbar.pack(side="right", fill="y", pady=(0, 10))
+
+        # Bottom frame
+        bottom_frame = ttk.Frame(help_window)
+        bottom_frame.pack(fill=tk.X, padx=20, pady=(10, 20))
+
+        # Tip
+        tip_label = tk.Label(
+            bottom_frame,
+            text="💡 Tip: Keep this window open while taking the quiz for reference",
+            font=("Arial", 10, "italic"),
+            bg="#ecf0f1",
+            fg="#27ae60"
+        )
+        tip_label.pack(pady=(0, 10))
+
+        # Close button
+        close_button = ttk.Button(
+            bottom_frame,
+            text="Close (Escape)",
+            command=help_window.destroy
+        )
+        close_button.pack()
+
+        # Bind Escape key to close help
+        help_window.bind('<Escape>', lambda e: help_window.destroy())
+
+        # Center focus on close button
+        close_button.focus()
+
+        self.logger.info("Help overlay displayed")
