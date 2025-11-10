@@ -114,6 +114,12 @@ class QuizScreen:
                        font=("Arial", 10, "bold"),
                        foreground="#2c3e50")
 
+        # Help button style
+        style.configure("Help.TButton",
+                       font=("Arial", 10, "bold"),
+                       padding=(8, 4),
+                       foreground="#3498db")
+
     def create_widgets(self) -> None:
         """Create all widgets for the quiz screen."""
         # Main container with top and bottom sections
