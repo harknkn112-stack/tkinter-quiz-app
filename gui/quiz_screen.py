@@ -189,12 +189,24 @@ class QuizScreen:
         )
         self.help_button.pack(side=tk.RIGHT, padx=(0, 10))
 
+        # Question and difficulty container
+        question_info_frame = ttk.Frame(counter_frame)
+        question_info_frame.pack(anchor=tk.W, fill=tk.X)
+
         self.question_counter_label = ttk.Label(
-            counter_frame,
+            question_info_frame,
             text="Question 1 of 10",
             style="Counter.TLabel"
         )
-        self.question_counter_label.pack(anchor=tk.W)
+        self.question_counter_label.pack(side=tk.LEFT)
+
+        # Difficulty indicator
+        self.difficulty_label = ttk.Label(
+            question_info_frame,
+            text="",
+            font=("Arial", 10, "bold")
+        )
+        self.difficulty_label.pack(side=tk.LEFT, padx=(10, 0))
 
         # Student info
         student_info_label = ttk.Label(
