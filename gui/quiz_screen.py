@@ -307,10 +307,20 @@ class QuizScreen:
     def setup_face_monitoring(self) -> None:
         """Set up face monitoring system."""
         try:
+            # Get face monitoring configuration
+            config = get_config()
+
+            # Only initialize if face monitoring is enabled
+            if not config.enable_face_monitoring:
+                self.face_monitoring_enabled = False
+                self.update_face_status("Disabled", "#95a5a6")  # Gray
+                self.logger.info("Face monitoring disabled in configuration")
+                return
+
             self.face_detector = FaceDetector(
-                camera_index=0,
-                detection_interval=1.0,
-                absence_threshold=3,
+                camera_index=config.camera_index,
+                detection_interval=config.face_detection_interval,
+                absence_threshold=config.face_absence_threshold,
                 callback=self.on_face_detection_event
             )
 
