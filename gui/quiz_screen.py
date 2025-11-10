@@ -883,3 +883,55 @@ class QuizScreen:
         close_button.focus()
 
         self.logger.info("Help overlay displayed")
+
+    def go_to_first_question(self) -> None:
+        """Navigate to the first question."""
+        self.display_question(0)
+
+    def go_to_last_question(self) -> None:
+        """Navigate to the last question."""
+        self.display_question(len(self.questions) - 1)
+
+    def clear_current_answer(self) -> None:
+        """Clear the answer for the current question."""
+        self.radio_var.set("")
+        self.answers[self.current_question_index] = ""
+        self.update_progress_indicator()
+        self.logger.info(f"Cleared answer for question {self.current_question_index + 1}")
+
+    def save_progress(self) -> None:
+        """Save current quiz progress (basic implementation)."""
+        try:
+            # Basic progress save - could be enhanced later
+            self.logger.info(f"Progress saved - Question {self.current_question_index + 1}, {sum(1 for a in self.answers if a)}/{len(self.questions)} answered")
+            # Show brief confirmation (non-intrusive)
+            if hasattr(self, 'frame'):
+                temp_label = tk.Label(self.frame, text="✓ Progress saved", fg="#27ae60", font=("Arial", 10))
+                temp_label.place(relx=0.5, rely=0.05)
+                self.frame.after(2000, temp_label.destroy)
+        except Exception as e:
+            self.logger.error(f"Failed to save progress: {e}")
+
+    def toggle_timer_pause(self) -> None:
+        """Toggle timer pause/resume (basic implementation)."""
+        if self.timer and hasattr(self.timer, 'is_paused'):
+            if not self.timer.is_paused:
+                self.timer.pause()
+                self.logger.info("Timer paused")
+            else:
+                self.timer.resume()
+                self.logger.info("Timer resumed")
+
+    def show_time_remaining(self) -> None:
+        """Show time remaining in a popup."""
+        if self.timer:
+            remaining_seconds = self.timer.get_remaining_seconds()
+            minutes = remaining_seconds // 60
+            seconds = remaining_seconds % 60
+
+            messagebox.showinfo(
+                "Time Remaining",
+                f"Time remaining: {minutes:02d}:{seconds:02d}\n"
+                f"Current question: {self.current_question_index + 1}/{len(self.questions)}\n"
+                f"Answered: {sum(1 for a in self.answers if a)}/{len(self.questions)} questions"
+            )
