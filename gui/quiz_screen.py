@@ -157,6 +157,16 @@ class QuizScreen:
         counter_frame = ttk.Frame(top_frame)
         counter_frame.pack(side=tk.LEFT, fill=tk.X, expand=True)
 
+        # Help button
+        self.help_button = ttk.Button(
+            counter_frame,
+            text="?",
+            style="Help.TButton",
+            command=self.show_help_overlay,
+            width=3
+        )
+        self.help_button.pack(side=tk.RIGHT, padx=(0, 10))
+
         self.question_counter_label = ttk.Label(
             counter_frame,
             text="Question 1 of 10",
