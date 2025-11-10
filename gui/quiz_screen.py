@@ -44,6 +44,11 @@ class QuizScreen:
         self.is_quiz_active = False
         self.timer_expired = False
 
+        # Face monitoring
+        self.face_detector = None
+        self.face_monitoring_enabled = False
+        self.away_notifications = 0
+
         # Create quiz frame
         self.frame = ttk.Frame(master, padding="20")
         self.frame.pack(fill=tk.BOTH, expand=True)
