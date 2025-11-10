@@ -71,6 +71,11 @@ class RegistrationScreen:
                        font=("Arial", 10, "bold"),
                        padding=(20, 10))
 
+        # Configure secondary button style
+        style.configure("Secondary.TButton",
+                       font=("Arial", 10),
+                       padding=(15, 8))
+
         # Configure error label style
         style.configure("Error.TLabel",
                        font=("Arial", 9),
