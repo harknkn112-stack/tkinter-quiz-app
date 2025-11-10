@@ -188,6 +188,15 @@ class RegistrationScreen:
         )
         self.cancel_button.pack(side=tk.RIGHT)
 
+        # Analytics button
+        self.analytics_button = ttk.Button(
+            button_frame,
+            text="View Analytics",
+            style="Secondary.TButton",
+            command=self.on_analytics_clicked
+        )
+        self.analytics_button.pack(side=tk.RIGHT, padx=(0, 10))
+
     def create_error_section(self, parent: ttk.Frame) -> None:
         """Create error message display area."""
         error_frame = ttk.Frame(parent)
