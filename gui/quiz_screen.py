@@ -518,6 +518,9 @@ class QuizScreen:
         # Update progress indicator
         self.update_progress_indicator()
 
+        # Add visual confirmation
+        self.show_answer_confirmation()
+
         # Log answer selection
         current_question = self.questions[self.current_question_index]
         selected_text = ""
@@ -530,6 +533,73 @@ class QuizScreen:
             self.current_question_index + 1,
             selected_text
         )
+
+    def on_answer_changed(self, *args) -> None:
+        """Handle radio button variable changes for immediate visual feedback."""
+        selected_value = self.radio_var.get()
+
+        # Reset all radio buttons to normal style
+        for i, radio in enumerate(self.option_radios):
+            if selected_value == f"option{i+1}":
+                # Selected option - make it green and bold
+                radio.config(style="AnswerSelected.TRadiobutton")
+                self.option_frames[i].config(relief=tk.RAISED, borderwidth=2, relief=tk.GROOVE)
+                self.option_frames[i].config(background="#d5f4e6")  # Light green background
+            else:
+                # Unselected options - normal style
+                radio.config(style="Quiz.TRadiobutton")
+                self.option_frames[i].config(relief=tk.FLAT, borderwidth=0)
+                self.option_frames[i].config(background="")  # Default background
+
+    def on_option_hover(self, option_index: int, is_entering: bool) -> None:
+        """Handle hover events on option radio buttons."""
+        radio = self.option_radios[option_index]
+
+        if is_entering:
+            # Only change style if not already selected
+            if self.radio_var.get() != f"option{option_index+1}":
+                radio.config(style="AnswerHover.TRadiobutton")
+                self.option_frames[option_index].config(background="#e8f4f8")  # Light blue background
+        else:
+            # Restore appropriate style when hover ends
+            if self.radio_var.get() == f"option{option_index+1}":
+                radio.config(style="AnswerSelected.TRadiobutton")
+                self.option_frames[option_index].config(background="#d5f4e6")
+            else:
+                radio.config(style="Quiz.TRadiobutton")
+                self.option_frames[option_index].config(background="")
+
+    def show_answer_confirmation(self) -> None:
+        """Show brief visual confirmation when answer is selected."""
+        try:
+            # Create a temporary confirmation label
+            if hasattr(self, 'frame'):
+                confirm_label = tk.Label(
+                    self.frame,
+                    text="✓ Answer Selected",
+                    font=("Arial", 11, "bold"),
+                    fg="#27ae60",
+                    bg="white",
+                    relief=tk.RAISED,
+                    borderwidth=1,
+                    padx=15,
+                    pady=5
+                )
+
+                # Position it at the bottom of the screen
+                confirm_label.place(relx=0.5, rely=0.92, anchor=tk.CENTER)
+
+                # Remove after 1.5 seconds
+                self.frame.after(1500, confirm_label.destroy)
+
+        except Exception as e:
+            self.logger.error(f"Failed to show answer confirmation: {e}")
+
+    def reset_option_styles(self) -> None:
+        """Reset all option styles to default."""
+        for i, (radio, frame) in enumerate(zip(self.option_radios, self.option_frames)):
+            radio.config(style="Quiz.TRadiobutton")
+            frame.config(relief=tk.FLAT, borderwidth=0, background="")
 
     def on_previous_clicked(self) -> None:
         """Handle Previous button click."""
