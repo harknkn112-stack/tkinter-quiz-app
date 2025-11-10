@@ -10,8 +10,8 @@
   "auto_submit_on_timeout": true,
   "total_questions": 12,
   "question_distribution": {
-    "simple": 4,
-    "medium": 3,
+    "simple": 5,
+    "medium": 4,
     "complex": 3
   },
   "enable_question_randomization": true,
