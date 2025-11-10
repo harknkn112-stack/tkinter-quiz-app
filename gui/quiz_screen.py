@@ -600,6 +600,60 @@ class QuizScreen:
                 radio.config(style="Quiz.TRadiobutton")
                 self.option_frames[option_index].config(background="")
 
+    def update_difficulty_indicator(self, difficulty: str) -> None:
+        """
+        Update the difficulty indicator based on question difficulty.
+
+        Args:
+            difficulty: Question difficulty level ('simple', 'medium', 'complex')
+        """
+        difficulty_config = {
+            'simple': {
+                'text': '🟢 Simple',
+                'style': 'DifficultySimple.TLabel',
+                'color': '#27ae60'
+            },
+            'medium': {
+                'text': '🟡 Medium',
+                'style': 'DifficultyMedium.TLabel',
+                'color': '#f39c12'
+            },
+            'complex': {
+                'text': '🔴 Complex',
+                'style': 'DifficultyComplex.TLabel',
+                'color': '#e74c3c'
+            }
+        }
+
+        config = difficulty_config.get(difficulty.lower(), difficulty_config['simple'])
+
+        if hasattr(self, 'difficulty_label'):
+            self.difficulty_label.config(
+                text=config['text'],
+                foreground=config['color']
+            )
+
+        # Update question background color based on difficulty
+        self.update_question_background_color(difficulty)
+
+    def update_question_background_color(self, difficulty: str) -> None:
+        """
+        Update the question label background color based on difficulty.
+
+        Args:
+            difficulty: Question difficulty level
+        """
+        difficulty_colors = {
+            'simple': '#d5f4e6',  # Light green
+            'medium': '#fef5e7',  # Light orange
+            'complex': '#fadbd8'   # Light red
+        }
+
+        bg_color = difficulty_colors.get(difficulty.lower(), '#ffffff')
+
+        if hasattr(self, 'question_label'):
+            self.question_label.config(background=bg_color)
+
     def show_answer_confirmation(self) -> None:
         """Show brief visual confirmation when answer is selected."""
         try:
